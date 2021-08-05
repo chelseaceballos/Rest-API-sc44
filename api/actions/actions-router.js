@@ -7,19 +7,16 @@ const Actions = require('./actions-model');
 
 
 
-router.get('/', (req, res, next) => { // FAIL
-   res.json('foo')
-    // Actions.get(req.params)
-    // .then(action => {
-    //     res.status(200).json(action)
-    // }) .catch (err => {
-    //     next(err)
-    // })
+router.get('/', (req, res) => { 
+    Actions.get()
+    .then(actions => {
+        res.json(actions)
+    }) .catch (err => {
+        res.send([]).json
+    })
 })
 
 router.get('/:id', (req, res, next) => {
-    // Returns an action with the given id as the body of the response.
-    // If there is no action with the given id it responds with a status code 404.
          Actions.get(req.params.id)
          .then(action => {
              if(!action) {
