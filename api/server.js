@@ -2,24 +2,27 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const actionsRouter = require('./actions/actions-router.js');
-const projectsRouter = require('./projects/projects-router.js');
+const actions = require('./actions/actions-router.js');
+const projects = require('./projects/projects-router.js');
 
 const server = express();
 
-server.use(express.json()) // teaches express to parse.req.body
+server.use(express.json()) 
+
 server.use(cors())
 server.use(helmet())
 
-server.use('/api/actions', actionsRouter);
-server.use('/api/projects', projectsRouter);
+server.use('/api/actions', actions);
+server.use('/api/projects', projects);
 // Configure your server here
 // Build your actions router in /api/actions/actions-router.js
 // Build your projects router in /api/projects/projects-router.js
 // Do NOT `server.listen()` inside this file!
 
-server.get('/', (req, res) => {
-    res.send(`<h2>Hi, my name is Chucky!</h2>`);
+server.get('*', (req, res) => {
+    res.status(404).json({
+      message: "not found"
+    })
   });
 
 module.exports = server;

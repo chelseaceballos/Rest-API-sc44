@@ -1,16 +1,19 @@
-const express = require('express');
-const router = express.Router();
-
+const router = require('express').Router()
 const Projects = require('./projects-model.js')
+
+// const router = express.Router();
+// const projects = express.Router();
 
 //middleware goes here
 
-const projectsRouter = express.Router();
 
 router.get('/', (req, res, next) => {
     // Returns an array of projects as the body of the response.
     // If there are no projects it responds with an empty array.
-
+    Projects.get()
+    .then(projects => {
+        res.status(200).json(projects)
+    }) .catch(next)
 })
 
 router.get('/:id', (req, res, next) => {
@@ -40,5 +43,12 @@ router.get('/:id/actions', (req, res, next) => {
 
 })
 
+router.use((err, req, res ,next) =>{
+    res.status(err.status || 500).json({
+        message: 'error message projects',
+        err: err.message,
+        stack: err.stack
+    })
+})
 
-module.exports = projectsRouter;
+module.exports = router;
