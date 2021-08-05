@@ -11,4 +11,9 @@ there is no data on that route, just write some code, you'll sort it out… don'
 I need this code, but don't know where, perhaps should make some middleware, don't worry, just hack it
 
 Pull your server into this file and start it!
-*/
+*/ 
+const server = require('./api/server.js');
+ 
+server.listen(4000, () => {
+   console.log('\n* Server Running on http://localhost:4000 *\n');
+});

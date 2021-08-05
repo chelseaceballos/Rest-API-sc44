@@ -153,7 +153,26 @@ We have provided test data for all the resources.
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
+	-Node.js gives developers the ability to create server side code using JSON (JavaScript Object Notation), before 2009 developers had to make servers using only  C, C++, Java, Python, Ruby, and C#. When server and client use the same JS language, it minimizes confusing context-switching. Additionally, JS gives developers access to npm repositories. This allows npm modules such as Express or Helmet to be installed.
+	-Express can replace Node.js’ complicated, over the top HTTP module. Express is widely considered to be an easier way to create web applications and services. Aside from being flexible and rather simple, one of the features that stands out is its ability to connect to middleware and use of routing.
+
 1. Understand and explain the use of Middleware.
+Middleware is a function that accesses the request object and the response object (req, res) to trigger an action.
+
 1. The basic principles of the REST architectural style.
+Everything is a resource.
+Each resource is accessible via a unique URI.
+resources can have multiple representations.
+communication happens over a stateless protocol (HTTP).
+resource management happens via HTTP methods.
+
 1. Understand and explain the use of Express Routers.
+Routing is based on the URL and HTTP method requested (.post, .put, .get, .delete etc. || example: http .get :5000/api/users)
+	It is the best way to keep the server “simple” and structured as it points in the direction of the request handler function needed to fulfill the client’s request.
+
 1. Describe tooling used to manually test the correctness of an API.
+HTTPIE - uses http methods followed by the url (or additional requirements when posting or putting)
+  Example: http .get (ex. .post) :4000/api/dogs (ex. name=Fido)
+POSTMAN - used to create and test API’s, basically, if httpie was a really cool chrome extension :)
+Debugger VSCODE - endpoints make it easier to track each line of code as it’s being processed. Helps avoid using a lot of console.log(s) *Cannot be ran at the same time as the server is running in the terminal
+
