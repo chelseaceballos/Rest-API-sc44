@@ -1,7 +1,5 @@
-// add middlewares here related to projects
-// add middlewares here related to actions
 const express = require('express');
-const Projects = require('./projects-model.js');
+// const Projects = require('./projects-model.js');
 
 function projectsLogger(req, res, next) {
     const method = req.method

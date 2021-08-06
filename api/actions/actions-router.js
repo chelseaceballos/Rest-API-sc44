@@ -30,8 +30,15 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     // Returns the newly created action as the body of the response.
-    // If the request body is missing any of the required fields it responds with a status code 400.
     // When adding an action make sure the project_id provided belongs to an existing project.
+    if (!req.body.project_id || !req.body.description || !req.body.notes){
+        res.status(400).json('required fields are missing')
+    } else {
+        Actions.insert(req.body)
+        .then(action =>{
+            res.status(201).json(action)
+        }) .catch(next)
+    }
 })
 
 router.put('/:id', (req, res, next) => {
