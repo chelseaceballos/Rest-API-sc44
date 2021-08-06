@@ -3,7 +3,9 @@ const Actions = require('./actions-model');
 
 
 //Middleware functions
-
+// const {
+//     middlfunc
+// } = require('./actions-middlware')
 
 
 router.get('/', (req, res) => { 

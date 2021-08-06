@@ -2,8 +2,10 @@ const router = require('express').Router()
 const Projects = require('./projects-model.js')
 
 
-
-//middleware goes here
+// //middleware goes here
+// const {
+//     validateProjId
+// } = require('./projects-middleware')
 
 
 router.get('/', (req, res, next) => {
@@ -24,9 +26,19 @@ router.get('/:id', (req, res, next) => {
     }) .catch(next)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/',  (req, res, next) => {
     //     Returns the newly created project as the body of the response.
     // If the request body is missing any of the required fields it responds with a status code 400.
+    if (!req.body.name || !req.body.description){
+        res.status(400).json('missing stuff')
+    } else {
+        Projects.insert(req.body)
+        .then(project =>{
+            res.status(201).json(project)
+        })
+        .catch(next)
+    }
+
 })
 
 router.put('/:id', (req, res, next) => {
