@@ -41,35 +41,28 @@ router.post('/', (req, res, next) => {
     }
 })
 
-// router.put('/:id', (req, res, next) => { //async??
-//   const { description, notes} = req.body
-//   if(!description || !notes) {
-//     res.status(400).json({ message: "required fields empty" })
-//   } else {
-//       Actions.get(req.params.id)
-//       .then(stuff =>{
-//           if(!stuff) {
-//              res.status(404).json({message : "The project with this ID doesn't exist"})
-//           } else {
-//               return Projects.update(req.params.id, req.body)
-//           }
-//       })
-//       .catch(next)
-//   }
-// })
 
-router.put('/:id', (req, res, next) => { //async??
-  
-    if (!req.body.project_id || !req.body.description || !req.body.notes) {
-        res.status(404).json('required fields left empty')
+
+router.put('/:id', (req, res, next) => {
+    const {description, notes} = req.body
+    if (!description || !notes) {
+        res.status(400).json({message: "required fields empty"})
     } else {
-        Actions.update(req.params.id, req.body)
-        .then(updated => {
-            res.status(201).json(updated)
-        }) 
-        .catch(next)
+        Actions.get(req.params.id)
+       .then(stuff => {
+           if(!stuff) {
+            res.status(404).json({message: "This action with this ID does not exist"})
+           } else {
+            Actions.update(req.params.id, req.body)
+            .then(updated => {
+                res.status(201).json(updated)
+            })
+           }
+       }) 
     } 
-})
+    })
+
+
 
 router.delete('/:id', (req, res, next) => {
     // Returns no response body.
