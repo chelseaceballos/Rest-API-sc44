@@ -38,14 +38,14 @@ router.post('/',  (req, res, next) => {
     }
 })
 
-router.put('/:id', (req, res, next) => { // 1/3 FAILING
-    // Returns the updated project as the body of the response.
-    // (HERE) If there is no project with the given id it responds with a status code 404.
-    // If the request body is missing any of the required fields it responds with a status code 400.
-    if(!req.body.name || !req.body.description){
+
+// when I add the req.body.completed, it passes the 400 test but fails the other two :(
+router.put('/:id', (req, res, next) => { // 1/3 FAILING 
+    const {name, description/*, completed*/} = req.body
+    if(!name || !description /*|| !completed*/){
         res.status(400).json('missing name and description')
     } else {
-        Projects.update(req.params.id, req.body)
+        Projects.update(req.params.id, req.body/*{name: req.name, description: req.description, completed: req.completed}*/)
         .then(project =>{
             res.status(201).json(project)
         })
