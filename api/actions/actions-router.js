@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const Actions = require('./actions-model');
-// const actions = express.Router();
-// const router = express.Router();
+
 
 //Middleware functions
 

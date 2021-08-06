@@ -1,15 +1,12 @@
 const router = require('express').Router()
 const Projects = require('./projects-model.js')
 
-// const router = express.Router();
-// const projects = express.Router();
+
 
 //middleware goes here
 
 
 router.get('/', (req, res, next) => {
-    // Returns an array of projects as the body of the response.
-    // If there are no projects it responds with an empty array.
     Projects.get()
     .then(projects => {
         res.status(200).json(projects)
@@ -17,8 +14,14 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-    // Returns a project with the given id as the body of the response.
-    // If there is no project with the given id it responds with a status code 404.
+    Projects.get(req.params.id)
+    .then(project => {
+        if(!project) {
+            res.status(404).json({message: `Project with ${req.params.id} ID does not exist`})
+        } else {
+            res.json(project)
+        }
+    }) .catch(next)
 })
 
 router.post('/', (req, res, next) => {
@@ -40,6 +43,7 @@ router.delete('/:id', (req, res, next) => {
 router.get('/:id/actions', (req, res, next) => {
     // Returns an array of actions (could be empty) belonging to a project with the given id.
     // If there is no project with the given id it responds with a status code 404.
+    // Projects.getProjectActions()
 
 })
 
